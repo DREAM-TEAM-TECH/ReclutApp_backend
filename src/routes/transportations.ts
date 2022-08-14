@@ -20,6 +20,6 @@ router.route('/:id').get(getTransportation)
 
 router.route('/:id').put(updateTransportation)
 
-router.route('/:id').post(deleteTransportation)
+router.route('/:id').delete(deleteTransportation)
 
 export default router;

@@ -20,6 +20,6 @@ router.route('/:id').get(getPoint)
 
 router.route('/:id').put(updatePoint)
 
-router.route('/:id').post(deletePoint)
+router.route('/:id').delete(deletePoint)
 
 export default router;

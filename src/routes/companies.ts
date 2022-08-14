@@ -20,6 +20,6 @@ router.route('/:id').get(getCompany)
 
 router.route('/:id').put(updateCompany)
 
-router.route('/:id').post(deleteCompany)
+router.route('/:id').delete(deleteCompany)
 
 export default router;

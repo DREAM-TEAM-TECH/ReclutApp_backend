@@ -20,6 +20,6 @@ router.route('/:id').get(getRole)
 
 router.route('/:id').put(updateRole)
 
-router.route('/:id').post(deleteRole)
+router.route('/:id').delete(deleteRole)
 
 export default router;

@@ -25,7 +25,7 @@ app.use('/api/companies', companiesRoutes);
 app.use('/api/points', pointsRoutes);
 app.use('/api/roles', rolesRoutes);
 app.use('/api/routes', routesRoutes);
-app.use('/api/transportation', transportationsRoutes);
+app.use('/api/transportations', transportationsRoutes);
 app.use('/api/users', usersRoutes);
 app.use('/api/vacants', vacantsRoutes);
 

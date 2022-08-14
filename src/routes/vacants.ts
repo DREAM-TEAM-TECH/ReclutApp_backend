@@ -20,6 +20,6 @@ router.route('/:id').get(getVacant)
 
 router.route('/:id').put(updateVacant)
 
-router.route('/:id').post(deleteVacant)
+router.route('/:id').delete(deleteVacant)
 
 export default router;

@@ -15,7 +15,7 @@ export async function getCandidates(req: Request, res: Response) {
 
 export async function getCandidate(req: Request, res: Response) { 
     return res.json({
-        message: 'Get candidates successfully'
+        message: 'Get candidate successfully'
     });
 }
 
