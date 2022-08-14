@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import multer from 'multer'
 
 const router = Router();
 
@@ -8,11 +9,14 @@ import {
     getTransportations,
     getTransportation,
     updateTransportation,
-    deleteTransportation
+    deleteTransportation,
+    addPhoto
 } from '../controllers/transportations.controller'
 
 //Routes
-router.route('/').post(createTransportation)
+router.route('/').post(multer().single('photo'), createTransportation)
+
+router.route('/uphoto/:id').post(multer().single('photo'), addPhoto)
 
 router.route('/').get(getTransportations)
 

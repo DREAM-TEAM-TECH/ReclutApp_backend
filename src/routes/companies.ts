@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import multer from 'multer'
 
 const router = Router();
 
@@ -8,11 +9,14 @@ import {
     getCompanies,
     getCompany,
     updateCompany,
-    deleteCompany
+    deleteCompany,
+    addRecord
 } from '../controllers/companies.controller'
 
 //Routes
 router.route('/').post(createCompany)
+
+router.route('/urecord/:id').post(multer().single('record'), addRecord)
 
 router.route('/').get(getCompanies)
 

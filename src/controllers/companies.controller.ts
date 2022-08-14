@@ -30,3 +30,9 @@ export async function deleteCompany(req: Request, res: Response) {
         message: 'Company deleted successfully'
     });
 }
+
+export async function addRecord(req: Request, res: Response) { 
+    return res.json({
+        message: 'Record uploaded to company successfully'
+    });
+}
