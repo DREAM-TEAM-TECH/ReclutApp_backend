@@ -9,24 +9,24 @@ export async function createUser(req: Request, res: Response) {
 }
 
 export async function getUsers(req: Request, res: Response) {
-    return res.json({
-        message: 'Get users successfully'
-    });
+    const users = await User.find().populate('role', 'transportation', 'companies');
+    return res.json(users);
 }
 
 export async function getUser(req: Request, res: Response) {
-    return res.json({
-        message: 'Get user successfully'
-    });
+    const user = await User.findById(req.params).populate('role', 'transportation', 'companies');
+    return res.json(user);
 }
 
 export async function updateUser(req: Request, res: Response) { 
+    let user = await User.findOneAndUpdate(req.params, req.body);
     return res.json({
         message: 'User updated successfully'
     });
 }
 
 export async function deleteUser(req: Request, res: Response) { 
+    const user = await User.findOneAndDelete(req.params);
     return res.json({
         message: 'User deleted successfully'
     });
