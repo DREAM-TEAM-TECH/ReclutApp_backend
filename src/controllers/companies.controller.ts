@@ -14,7 +14,7 @@ export async function getCompanies(req: Request, res: Response) {
 }
 
 export async function getCompany(req: Request, res: Response) { 
-    const company = await Company.findById(req.params);
+    const company = await Company.findById(req.params).populate('users', 'vacants', 'routes', 'records').populate('transportations');
     return res.json(company);
 }
 

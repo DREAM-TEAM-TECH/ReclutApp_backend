@@ -11,7 +11,7 @@ const CompanySchema = new Schema({
     vacants: { type: Schema.Types.ObjectId, ref: "Vacant" },
     //routes
     routes: { type: Schema.Types.ObjectId, ref: "Route" },
-    //record
+    //records
     records: [{ type: String }],
     //transportations
     transportations: { type: Schema.Types.ObjectId, ref: "Transportation" },
