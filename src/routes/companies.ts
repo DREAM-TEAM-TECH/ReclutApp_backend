@@ -10,13 +10,16 @@ import {
     getCompany,
     updateCompany,
     deleteCompany,
-    addRecord
+    addRecord,
+    removeRecord
 } from '../controllers/companies.controller'
 
 //Routes
 router.route('/').post(createCompany)
 
 router.route('/urecord/:id').post(multer().single('record'), addRecord)
+
+router.route('/drecord/:id').post(removeRecord)
 
 router.route('/').get(getCompanies)
 

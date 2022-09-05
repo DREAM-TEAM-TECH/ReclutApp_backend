@@ -39,3 +39,11 @@ export async function addRecord(req: Request, res: Response) {
         message: 'Record uploaded to company successfully'
     });
 }
+
+export async function removeRecord(req: Request, res: Response) { 
+    //Remove file from GCS
+    //Remove link to records
+    return res.json({
+        message: 'Record removed from company successfully'
+    });
+}

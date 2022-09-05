@@ -10,13 +10,16 @@ import {
     getTransportation,
     updateTransportation,
     deleteTransportation,
-    addPhoto
+    addPhoto,
+    removePhoto
 } from '../controllers/transportations.controller'
 
 //Routes
 router.route('/').post(multer().single('photo'), createTransportation)
 
 router.route('/uphoto/:id').post(multer().single('photo'), addPhoto)
+
+router.route('/dphoto/:id').post(removePhoto)
 
 router.route('/').get(getTransportations)
 
