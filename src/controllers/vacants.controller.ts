@@ -14,7 +14,7 @@ export async function getVacants(req: Request, res: Response) {
 }
 
 export async function getVacant(req: Request, res: Response) {
-    const vacant = await Vacant.findById(req.params);
+    const vacant = await Vacant.findById(req.params.id);
     return res.json(vacant);
 }
 

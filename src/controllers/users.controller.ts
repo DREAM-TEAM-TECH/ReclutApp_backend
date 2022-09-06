@@ -14,7 +14,7 @@ export async function getUsers(req: Request, res: Response) {
 }
 
 export async function getUser(req: Request, res: Response) {
-    const user = await User.findById(req.params).populate('role', 'transportation', 'companies');
+    const user = await User.findById(req.params.id).populate('role', 'transportation', 'companies');
     return res.json(user);
 }
 

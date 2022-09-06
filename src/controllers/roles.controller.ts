@@ -14,7 +14,7 @@ export async function getRoles(req: Request, res: Response) {
 }
 
 export async function getRole(req: Request, res: Response) { 
-    const role = await Role.findById(req.params);
+    const role = await Role.findById(req.params.id);
     return res.json(role);
 }
 

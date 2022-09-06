@@ -14,7 +14,7 @@ export async function getRoutes(req: Request, res: Response) {
 }
 
 export async function getRoute(req: Request, res: Response) { 
-    const route = await Route.findById(req.params).populate('transportation', 'points');
+    const route = await Route.findById(req.params.id).populate('transportation', 'points');
     return res.json(route);
 }
 

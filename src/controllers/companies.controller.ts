@@ -1,4 +1,5 @@
 import { Request, Response } from 'express'
+import { deleteFile, uploadCompanyRecord } from '../helpers/gcs';
 import Company from '../models/Company'
 
 export async function createCompany(req: Request, res: Response) { 
@@ -14,7 +15,7 @@ export async function getCompanies(req: Request, res: Response) {
 }
 
 export async function getCompany(req: Request, res: Response) { 
-    const company = await Company.findById(req.params).populate('users', 'vacants', 'routes', 'records').populate('transportations');
+    const company = await Company.findById(req.params.id).populate('users', 'vacants', 'routes', 'records').populate('transportations');
     return res.json(company);
 }
 
@@ -33,16 +34,35 @@ export async function deleteCompany(req: Request, res: Response) {
 }
 
 export async function addRecord(req: Request, res: Response) { 
-    //Upload file to GCS
-    //Push link to records
+    
+    //Upload to GCS
+    if (!req.file) {
+        return res.json({
+            message: 'Please upload a photo!'
+        });
+    }
+    uploadCompanyRecord(req.file, req.params.id).then(
+        async res => {
+            //Push link to records
+            const company = await Company.findById(req.params.id);
+            company?.records.push(res)
+            company?.save()
+        }
+    );
+
     return res.json({
         message: 'Record uploaded to company successfully'
     });
 }
 
 export async function removeRecord(req: Request, res: Response) { 
-    //Remove file from GCS
-    //Remove link to records
+    
+    //Delete from GCS
+    await deleteFile(req.body.src);
+
+    // Remove link from `records`
+    await Company.updateOne({ _id: req.params.id }, { $pull: { photos: req.body.src } })
+
     return res.json({
         message: 'Record removed from company successfully'
     });

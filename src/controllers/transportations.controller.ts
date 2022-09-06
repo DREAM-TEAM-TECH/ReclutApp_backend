@@ -1,9 +1,6 @@
 import { Request, Response } from 'express'
-import { Storage } from '@google-cloud/storage'
 import Transportation from '../models/Transportation'
-
-const storage = new Storage();
-const bucket = storage.bucket('reclutapp');
+import { deleteFile, uploadTransportationPhoto } from '../helpers/gcs'
 
 export async function createTransportation(req: Request, res: Response) {
     const newTransportation = await Transportation.create(req.body);
@@ -18,7 +15,7 @@ export async function getTransportations(req: Request, res: Response) {
 }
 
 export async function getTransportation(req: Request, res: Response) {
-    let transportation = await Transportation.findOneAndUpdate(req.params, req.body);
+    const transportation = await Transportation.findById(req.params.id);
     return res.json(transportation);
 }
 
@@ -37,18 +34,33 @@ export async function deleteTransportation(req: Request, res: Response) {
 }
 
 export async function addPhoto(req: Request, res: Response) {
+
     //Upload to GCS
-    // Append items to `friends`
-    // doc.friends.push('Maria')
+    if (!req.file) {
+        return res.json({
+            message: 'Please upload a photo!'
+        });
+    }
+    uploadTransportationPhoto(req.file, req.params.id).then(
+        async res => {
+            //Append items to `transportations`
+            await Transportation.updateOne({ _id: req.params.id }, { $push: { photos: res } })
+        }
+    );
+
     return res.json({
         message: 'Photo uploaded to transportation successfully'
     });
 }
 
 export async function removePhoto(req: Request, res: Response) {
+
     //Delete from GCS
-    // Remove items from `friends`
-    // doc.friends.push('Maria')
+    await deleteFile(req.body.src);
+
+    // Remove item from `transportations`
+    //await Transportation.updateOne({ _id: req.params.id }, { $pull: { photos: req.body.src } })
+
     return res.json({
         message: 'Photo removed from transportation successfully'
     });

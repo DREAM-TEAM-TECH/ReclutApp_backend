@@ -14,7 +14,7 @@ export async function getPoints(req: Request, res: Response) {
 }
 
 export async function getPoint(req: Request, res: Response) { 
-    const point = await Point.findById(req.params);
+    const point = await Point.findById(req.params.id);
     return res.json(point);
 }
 

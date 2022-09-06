@@ -14,7 +14,7 @@ export async function getCandidates(req: Request, res: Response) {
 }
 
 export async function getCandidate(req: Request, res: Response) { 
-    const candidate = await Candidate.findById(req.params).populate('point', 'vacant', 'company');
+    const candidate = await Candidate.findById(req.params.id).populate('point', 'vacant', 'company');
     return res.json(candidate);
 }
 
