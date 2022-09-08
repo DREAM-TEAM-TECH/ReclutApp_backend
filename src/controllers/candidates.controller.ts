@@ -31,3 +31,8 @@ export async function deleteCandidate(req: Request, res: Response) {
         message: 'Candidate deleted successfully'
     });
 }
+
+export async function deleteAllCandidates(){
+    const candidates = await Candidate.deleteMany({});
+    console.log(`${Date.now()} candidates removed`)
+}
