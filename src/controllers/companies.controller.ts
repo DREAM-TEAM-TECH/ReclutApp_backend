@@ -3,7 +3,7 @@ import { deleteFile, uploadCompanyRecord } from '../helpers/gcs';
 import Company from '../models/Company'
 
 export async function createCompany(req: Request, res: Response) { 
-    const newCompany = await Company.create(req.body); 
+    const newCompany = await Company.create(req.body);
     return res.json({
         message: 'Company created successfully'
     });
@@ -44,9 +44,7 @@ export async function addRecord(req: Request, res: Response) {
     uploadCompanyRecord(req.file, req.params.id).then(
         async res => {
             //Push link to records
-            const company = await Company.findById(req.params.id);
-            company?.records.push(res)
-            company?.save()
+            await Company.updateOne({ _id: req.params.id }, { $push: { records: res } })
         }
     );
 
@@ -61,7 +59,7 @@ export async function removeRecord(req: Request, res: Response) {
     await deleteFile(req.body.src);
 
     // Remove link from `records`
-    await Company.updateOne({ _id: req.params.id }, { $pull: { photos: req.body.src } })
+    await Company.updateOne({ _id: req.params.id }, { $pull: { records: req.body.src } })
 
     return res.json({
         message: 'Record removed from company successfully'

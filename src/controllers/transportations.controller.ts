@@ -4,6 +4,20 @@ import { deleteFile, uploadTransportationPhoto } from '../helpers/gcs'
 
 export async function createTransportation(req: Request, res: Response) {
     const newTransportation = await Transportation.create(req.body);
+
+    //Upload to GCS
+    if (!req.file) {
+        return res.json({
+            message: 'Please upload a photo!'
+        });
+    }
+    uploadTransportationPhoto(req.file, req.params.id).then(
+        async res => {
+            //Append items to `transportations`
+            await Transportation.updateOne({ _id: newTransportation.id }, { $push: { photos: res } })
+        }
+    );
+
     return res.json({
         message: 'Transportation created successfully'
     });
@@ -58,8 +72,8 @@ export async function removePhoto(req: Request, res: Response) {
     //Delete from GCS
     await deleteFile(req.body.src);
 
-    // Remove item from `transportations`
-    //await Transportation.updateOne({ _id: req.params.id }, { $pull: { photos: req.body.src } })
+    // Remove link from `photos`
+    await Transportation.updateOne({ _id: req.params.id }, { $pull: { photos: req.body.src } })
 
     return res.json({
         message: 'Photo removed from transportation successfully'
