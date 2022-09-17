@@ -1,5 +1,4 @@
 import express from 'express'
-import {Router} from 'express'
 import morgan from 'morgan'
 import candidatesRoutes from './routes/candidates'
 import companiesRoutes from './routes/companies'
