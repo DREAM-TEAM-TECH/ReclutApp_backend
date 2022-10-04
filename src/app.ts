@@ -8,6 +8,7 @@ import routesRoutes from './routes/routes'
 import transportationsRoutes from './routes/transportations'
 import usersRoutes from './routes/users'
 import vacantsRoutes from './routes/vacants'
+import authenticateToken from './middlewares/authenticateJwt'
 
 const app = express();
 
@@ -20,13 +21,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //Routes
-app.use('/api/candidates', candidatesRoutes);
-app.use('/api/companies', companiesRoutes);
-app.use('/api/points', pointsRoutes);
-app.use('/api/roles', rolesRoutes);
-app.use('/api/routes', routesRoutes);
-app.use('/api/transportations', transportationsRoutes);
+app.use('/api/candidates', authenticateToken, candidatesRoutes);
+app.use('/api/companies', authenticateToken, companiesRoutes);
+app.use('/api/points', authenticateToken, pointsRoutes);
+app.use('/api/roles', authenticateToken, rolesRoutes);
+app.use('/api/routes', authenticateToken, routesRoutes);
+app.use('/api/transportations', authenticateToken, transportationsRoutes);
 app.use('/api/users', usersRoutes);
-app.use('/api/vacants', vacantsRoutes);
+app.use('/api/vacants', authenticateToken,vacantsRoutes);
 
 export default app;

@@ -1,10 +1,18 @@
 import { Request, Response } from 'express'
 import User from '../models/User'
+const jwt = require('jsonwebtoken')
 
 export async function createUser(req: Request, res: Response) {
+    const generateAccessToken = (email: any) => {
+        return jwt.sign(email, process.env.TOKEN_SECRET);
+    }
+
+    console.log(req.body.email);
+    const token = generateAccessToken(req.body.email);
     const newUser = await User.create(req.body); 
     return res.json({
-        message: 'User created successfully'
+        message: 'User created successfully',
+        token : token
     });
 }
 
