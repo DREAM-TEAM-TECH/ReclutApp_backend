@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import authenticateToken from '../middlewares/authenticateJwt';
 
 const router = Router();
 
@@ -18,8 +19,8 @@ router.route('/').get(getUsers)
 
 router.route('/:id').get(getUser)
 
-router.route('/:id').put(updateUser)
+router.route('/:id').put(authenticateToken, updateUser)
 
-router.route('/:id').delete(deleteUser)
+router.route('/:id').delete(authenticateToken, deleteUser)
 
 export default router;
