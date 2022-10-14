@@ -1,9 +1,7 @@
 import mongoose from 'mongoose'
 
-const password = "ReclutApp090909";
-const uri = `mongodb+srv://reclutappAdmin:${password}@cluster0.7hlq2nx.mongodb.net/reclutapp?retryWrites=true&w=majority`;
-
 export async function connection() {
-    await mongoose.connect(uri);
+    console.log()
+    await mongoose.connect(`mongodb+srv://reclutappAdmin:${process.env.MONGO_PASSWORD as string}@cluster0.7hlq2nx.mongodb.net/reclutapp?retryWrites=true&w=majority`);
     console.log('Database is connected');
 }

@@ -20,6 +20,11 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+//Main
+app.get('/', async (req, res) => {
+    res.json({ message: "Backend API REST for ReclutApp"});
+})
+
 //Routes
 app.use('/api/candidates', authenticateToken, candidatesRoutes);
 app.use('/api/companies', authenticateToken, companiesRoutes);
