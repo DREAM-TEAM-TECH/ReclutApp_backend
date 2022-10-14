@@ -1,7 +1,7 @@
-import app from './app'
-import { connection } from './database'
+import app from './src/app'
+import { connection } from './src/database'
 import schedule from 'node-schedule'
-import { deleteAllCandidates } from './controllers/candidates.controller'
+import { deleteAllCandidates } from './src/controllers/candidates.controller'
 import dotenv from 'dotenv'
 
 async function main() {
