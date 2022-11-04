@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { generarJWT } from '../middlewares/generateJWT';
 import User from '../models/User'
 
 export const login = async (req: Request, res: Response) => {
@@ -13,5 +14,7 @@ export const login = async (req: Request, res: Response) => {
     })
   }
 
-  res.json({ email, password });
+  const token = await generarJWT(email);
+
+  res.json({ token });
 }
