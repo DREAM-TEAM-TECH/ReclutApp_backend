@@ -16,8 +16,6 @@ const authenticateToken = (req: any, res: any, next: any) => {
 
             req.user = user;
 
-            console.log(req.user);
-
             next();
         })
     } catch (error) {
