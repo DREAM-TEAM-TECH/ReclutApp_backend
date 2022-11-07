@@ -6,7 +6,7 @@ const UserSchema = new Schema({
     email: { type: String, required: true, unique: true },
     phone: { type: String, required: true },
     //role
-    role: { type: Schema.Types.ObjectId, ref: "Role", required: true },
+    role: { type: Schema.Types.ObjectId, ref: "Role" }, // required: true
     //transportation
     transportation: { type: Schema.Types.ObjectId, ref: "Transportation" },
     //companies
