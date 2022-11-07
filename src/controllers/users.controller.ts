@@ -9,6 +9,7 @@ export async function createUser(req: Request, res: Response) {
 
     const salt = bcryptjs.genSaltSync();
     const passwordCrypt = bcryptjs.hashSync(password, salt);
+
     req.body.password = passwordCrypt;
 
     const token = await generarJWT(email);
