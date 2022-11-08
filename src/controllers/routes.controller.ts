@@ -11,7 +11,7 @@ export async function createRoute(req: Request, res: Response) {
 export async function getRoutes(req: Request, res: Response) {
     const routes = await Route.find()
         .populate('transportation', 'license_plates')
-        .populate('points.id', 'name');
+        .populate('points.id', 'address');
     return res.json(routes);
 }
 
