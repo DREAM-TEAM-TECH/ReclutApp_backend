@@ -1,4 +1,6 @@
 import { Router } from 'express'
+import { check } from 'express-validator';
+import { validarCampos } from '../middlewares/validarCampos';
 
 const router = Router();
 
@@ -8,13 +10,19 @@ import {
     getCandidates,
     getCandidate,
     updateCandidate,
-    deleteCandidate
+    deleteCandidate,
+    getCandidatesByPoint
 } from '../controllers/candidates.controller'
 
 //Routes
 router.route('/').post(createCandidate)
 
 router.route('/').get(getCandidates)
+
+router.get('/point/:id', [
+    check('id', 'Is not a valid Mongo ID').isMongoId(),
+    validarCampos
+], getCandidatesByPoint);
 
 router.route('/:id').get(getCandidate)
 
