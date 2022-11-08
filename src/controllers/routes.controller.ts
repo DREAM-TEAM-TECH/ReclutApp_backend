@@ -9,9 +9,7 @@ export async function createRoute(req: Request, res: Response) {
 }
 
 export async function getRoutes(req: Request, res: Response) {
-    const routes = await Route.find()
-        .populate('transportation', 'license_plates')
-        .populate('points.id', 'address');
+    const routes = await Route.find();
     return res.json(routes);
 }
 

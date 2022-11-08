@@ -5,11 +5,7 @@ const RouteSchema = new Schema({
     //transportation
     transportation: { type: Schema.Types.ObjectId, ref: "Transportation", required: true },
     //points
-    points: [{
-        id: {
-            type: Schema.Types.ObjectId, ref: "Point"
-        }
-    }],
+    points: [{ type: Schema.Types.ObjectId, ref: "Point" }],
 });
 
 interface IRoute extends Document {
