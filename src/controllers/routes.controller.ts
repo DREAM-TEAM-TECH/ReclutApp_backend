@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import Route from '../models/Route'
 
 export async function createRoute(req: Request, res: Response) {
-    const newRoute = await Route.create(req.body);
+    await Route.create(req.body);
     return res.json({
         message: 'Route created successfully'
     });
