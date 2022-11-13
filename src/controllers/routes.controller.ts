@@ -9,13 +9,17 @@ export async function createRoute(req: Request, res: Response) {
 }
 
 export async function getRoutes(req: Request, res: Response) {
-    const routes = await Route.find();
+    const routes = await Route.find()
+        .populate('transportation')
+        .populate('points')
     return res.json(routes);
 }
 
 export async function getRoute(req: Request, res: Response) {
-    const route = await Route.findById(req.params.id).populate('transportation', 'points');
-    return res.json(route);
+    const route = await Route.findById(req.params.id)
+        .populate('transportation')
+        .populate('points')
+    return res.json({ routes: route });
 }
 
 export async function updateRoute(req: Request, res: Response) {
