@@ -10,7 +10,7 @@ export async function getRoutes(req: Request, res: Response) {
     const routes = await Route.find()
         .populate('transportation')
         .populate('points')
-    return res.json(routes);
+    return res.json({ routes });
 }
 
 export async function getRoute(req: Request, res: Response) {
