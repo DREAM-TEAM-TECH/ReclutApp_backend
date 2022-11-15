@@ -3,21 +3,24 @@ import Route from '../models/Route'
 
 export async function createRoute(req: Request, res: Response) {
     const newRoute = await Route.create(req.body);
-    return res.json(newRoute);
+    const route = await Route.findById(newRoute)
+        .populate('transportation')
+        .populate('points')
+    return res.json(route);
 }
 
 export async function getRoutes(req: Request, res: Response) {
     const routes = await Route.find()
         .populate('transportation')
         .populate('points')
-    return res.json({ routes });
+    return res.json(routes);
 }
 
 export async function getRoute(req: Request, res: Response) {
     const route = await Route.findById(req.params.id)
         .populate('transportation')
         .populate('points')
-    return res.json({ routes: route });
+    return res.json(route);
 }
 
 export async function updateRoute(req: Request, res: Response) {

@@ -3,13 +3,14 @@ import Candidate from '../models/Candidate'
 
 export async function createCandidate(req: Request, res: Response) {
     const newCandidate = await Candidate.create(req.body);
-    return res.json({
-        message: 'Candidate created successfully'
-    });
+    return res.json(newCandidate);
 }
 
 export async function getCandidates(req: Request, res: Response) {
-    const candidates = await Candidate.find();
+    const candidates = await Candidate.find()
+    // .populate('point')
+    // .populate('vacant')
+    // .populate('company')
     return res.json(candidates);
 }
 
@@ -19,7 +20,10 @@ export async function getCandidatesByPoint(req: Request, res: Response) {
 }
 
 export async function getCandidate(req: Request, res: Response) {
-    const candidate = await Candidate.findById(req.params.id).populate('point', 'vacant', 'company');
+    const candidate = await Candidate.findById(req.params.id)
+        .populate('point')
+    // .populate('vacant')
+    // .populate('company')
     return res.json(candidate);
 }
 
