@@ -6,12 +6,14 @@ const RouteSchema = new Schema({
     transportation: { type: Schema.Types.ObjectId, ref: "Transportation", required: true },
     //points
     points: { type: Schema.Types.ObjectId, ref: "Point" },
+    completed: { type: Boolean, default: false }
 });
 
 interface IRoute extends Document {
     name: string,
     transportation: Types.ObjectId,
     points: Types.ObjectId,
+    completed: boolean
 };
 
 export default model<IRoute>('Route', RouteSchema);
