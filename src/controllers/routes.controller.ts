@@ -24,10 +24,10 @@ export async function getRoute(req: Request, res: Response) {
 }
 
 export async function updateRoute(req: Request, res: Response) {
-    let route = await Route.findOneAndUpdate(req.params, req.body);
-    return res.json({
-        message: 'Route updated successfully'
-    });
+    let route = await Route.findByIdAndUpdate(req.params.id, req.body, { new: true })
+        .populate('transportation')
+        .populate('points')
+    return res.json(route);
 }
 
 export async function deleteRoute(req: Request, res: Response) {

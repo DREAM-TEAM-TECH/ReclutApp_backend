@@ -8,7 +8,6 @@ const PointSchema = new Schema({
         arrival: { type: String, required: true },
         departure: { type: String, required: true },
         notes: { type: String, required: true },
-        completed: { type: Boolean, default: false }
     }]
 });
 
