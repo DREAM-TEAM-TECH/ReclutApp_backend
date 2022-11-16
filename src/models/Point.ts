@@ -1,4 +1,4 @@
-import { Schema, model, Document } from 'mongoose'
+import { Schema, model, Document, Types } from 'mongoose'
 
 const PointSchema = new Schema({
     points: [{
@@ -12,12 +12,15 @@ const PointSchema = new Schema({
 });
 
 interface IPoint extends Document {
-    name: string,
-    address: string,
-    maps_link: string,
-    arrival: string,
-    departure: string,
-    notes: string,
+    points: [{
+        name: string,
+        address: string,
+        maps_link: string,
+        arrival: string,
+        departure: string,
+        notes: string,
+        _id: Types.ObjectId
+    }]
 };
 
 export default model<IPoint>('Point', PointSchema);
