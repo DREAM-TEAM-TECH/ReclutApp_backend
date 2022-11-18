@@ -31,8 +31,6 @@ export async function updateRoute(req: Request, res: Response) {
 }
 
 export async function deleteRoute(req: Request, res: Response) {
-    const route = await Route.findOneAndDelete(req.params);
-    return res.json({
-        message: 'Route deleted successfully'
-    });
+    const routeDeleted = await Route.findByIdAndDelete(req.params.id);
+    return res.json(routeDeleted);
 }
