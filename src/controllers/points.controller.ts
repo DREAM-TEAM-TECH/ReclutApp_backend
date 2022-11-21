@@ -12,15 +12,8 @@ export async function getPoints(req: Request, res: Response) {
 }
 
 export async function getPoint(req: Request, res: Response) {
-    const point = await Point.findOne({
-        "points._id": req.params.id
-    });
-
-    const pointID = point?.points.find((point) => {
-        return (point._id.toString() === req.params.id) ? point : ''
-    })
-
-    return res.json({ point: pointID });
+    const point = await Point.findById(req.params.id);
+    return res.json(point);
 }
 
 export async function updatePoint(req: Request, res: Response) {
