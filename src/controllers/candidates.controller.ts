@@ -6,6 +6,7 @@ export async function createCandidate(req: Request, res: Response) {
     const candidate = await Candidate.findById(newCandidate)
         .populate('vacant')
         .populate('company')
+        .populate('point')
     return res.json(candidate);
 }
 
@@ -13,6 +14,7 @@ export async function getCandidates(req: Request, res: Response) {
     const candidates = await Candidate.find()
         .populate('vacant')
         .populate('company')
+        .populate('point')
     return res.json(candidates);
 }
 
@@ -20,6 +22,7 @@ export async function getCandidatesByPoint(req: Request, res: Response) {
     const candidates = await Candidate.find({ point: req.params.id })
         .populate('vacant')
         .populate('company')
+        .populate('point')
     return res.json(candidates);
 }
 
@@ -27,6 +30,7 @@ export async function getCandidate(req: Request, res: Response) {
     const candidate = await Candidate.findById(req.params.id)
         .populate('vacant')
         .populate('company')
+        .populate('point')
     return res.json(candidate);
 }
 
