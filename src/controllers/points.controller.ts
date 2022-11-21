@@ -22,8 +22,9 @@ export async function updatePoint(req: Request, res: Response) {
 }
 
 export async function deletePoint(req: Request, res: Response) {
-    const point = await Point.findOneAndDelete(req.params);
+    const point = await Point.findByIdAndDelete(req.params.id);
     return res.json({
-        message: 'Point deleted successfully'
+        message: 'Point deleted successfully',
+        point
     });
 }
