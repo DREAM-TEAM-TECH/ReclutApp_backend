@@ -17,10 +17,8 @@ export async function getPoint(req: Request, res: Response) {
 }
 
 export async function updatePoint(req: Request, res: Response) {
-    let point = await Point.findOneAndUpdate(req.params, req.body);
-    return res.json({
-        message: 'Point updated successfully'
-    });
+    let point = await Point.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    return res.json(point);
 }
 
 export async function deletePoint(req: Request, res: Response) {
