@@ -43,9 +43,10 @@ export async function updateCandidate(req: Request, res: Response) {
 }
 
 export async function deleteCandidate(req: Request, res: Response) {
-    const candidate = await Candidate.findOneAndDelete(req.params);
+    const candidate = await Candidate.findByIdAndDelete(req.params.id);
     return res.json({
-        message: 'Candidate deleted successfully'
+        message: 'Candidate deleted successfully',
+        candidate
     });
 }
 
