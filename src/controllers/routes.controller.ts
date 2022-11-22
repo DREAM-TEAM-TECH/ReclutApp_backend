@@ -33,7 +33,7 @@ export async function updateRoute(req: Request, res: Response) {
         })
     } else {
 
-        const { point, ...infoRoute } = req.body;
+        const { point, transportation, name } = req.body;
 
         if (point) {
 
@@ -47,11 +47,22 @@ export async function updateRoute(req: Request, res: Response) {
 
         } else {
 
-            const route = await Route.findByIdAndUpdate(req.params.id, infoRoute, { new: true })
-                .populate('transportation')
-                .populate('points');
-
-            return res.json(route);
+            if (transportation && name) {
+                const route = await Route.findByIdAndUpdate(req.params.id, { name, transportation }, { new: true })
+                    .populate('transportation')
+                    .populate('points');
+                return res.json(route);
+            } else if (name) {
+                const route = await Route.findByIdAndUpdate(req.params.id, { name }, { new: true })
+                    .populate('transportation')
+                    .populate('points');
+                return res.json(route);
+            } else if (transportation) {
+                const route = await Route.findByIdAndUpdate(req.params.id, { transportation }, { new: true })
+                    .populate('transportation')
+                    .populate('points');
+                return res.json(route);
+            }
 
         }
     }
