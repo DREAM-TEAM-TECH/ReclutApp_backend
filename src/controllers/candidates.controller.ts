@@ -35,9 +35,10 @@ export async function getCandidate(req: Request, res: Response) {
 }
 
 export async function updateCandidate(req: Request, res: Response) {
-    let candidate = await Candidate.findOneAndUpdate(req.params, req.body);
+    const candidate = await Candidate.findByIdAndUpdate(req.params.id, req.body, { new: true });
     return res.json({
-        message: 'Candidate updated successfully'
+        message: 'Candidate updated successfully',
+        candidate
     });
 }
 
