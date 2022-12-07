@@ -1,6 +1,7 @@
 import { Storage } from '@google-cloud/storage'
 import path from 'path'
 import stream from 'stream'
+import nodemailer from 'nodemailer'
 
 const storage = new Storage({
     projectId: 'reclutapp',
@@ -54,7 +55,7 @@ export async function uploadCompanyRecord(requestfile: { originalname: string, b
     return url;
 }
 
-export async function deleteFile(url: String){
+export async function deleteFile(url: String) {
 
     const file = url.replace("https://storage.googleapis.com/reclutapp/", "");
     async function deleteFile() {
@@ -64,3 +65,71 @@ export async function deleteFile(url: String){
     deleteFile().catch(console.error);
 
 }
+
+export async function uploadCandidatesCSV(candidates: {}[]) {
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = today.getMonth() + 1;
+    const dd = today.getDate();
+
+    const file = bucket.file(`records/${dd + '/' + mm + '/' + yyyy}_candidates.csv`);
+
+    var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'reclutapp.client@gmail.com',
+            pass: process.env.EMAIL_PASSWORD as string,
+        }
+    });
+
+    function jsonToCsv(items: any) {
+        const header = Object.keys(items[0]);
+
+        const headerString = header.join(',');
+
+        // handle null or undefined values here
+        const replacer = (key: any, value: any) => value ?? '';
+
+        const rowItems = items.map((row: any) =>
+            header
+                .map((fieldName) => JSON.stringify(row[fieldName], replacer))
+                .join(',')
+        );
+
+        // join header and body, and break into separate lines
+        const csv = [headerString, ...rowItems].join('\r\n');
+
+        return csv;
+    }
+
+    const csv = jsonToCsv(JSON.parse(JSON.stringify(candidates)))
+
+    const passthroughStream = new stream.PassThrough();
+    passthroughStream.write(csv);
+    passthroughStream.end();
+
+    async function streamFileUpload() {
+        passthroughStream.pipe(file.createWriteStream().on('finish', () => {
+            bucket.file(`records/${dd + '/' + mm + '/' + yyyy}_candidates.csv`).makePublic();
+
+            var mailOptions = {
+                from: 'reclutapp.client@gmail.com',
+                to: 'reclutapp.client@gmail.com',
+                subject: `${dd + '/' + mm + '/' + yyyy} candidates`,
+                text: `CSV link: https://storage.googleapis.com/reclutapp/records/${dd + '/' + mm + '/' + yyyy}_candidates.csv`
+            };
+
+            transporter.sendMail(mailOptions, function (error, info) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log('Email sent: ' + info.response);
+                }
+            });
+        }));
+        console.log(`CSV uploaded to ${bucket.name}`);
+    }
+
+    await streamFileUpload().catch(console.error);
+}
+

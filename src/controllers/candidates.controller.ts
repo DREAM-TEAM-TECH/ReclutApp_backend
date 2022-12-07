@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
 import Candidate from '../models/Candidate'
+import { uploadCandidatesCSV } from '../helpers/gcs';
 
 export async function createCandidate(req: Request, res: Response) {
     const newCandidate = await Candidate.create(req.body);
@@ -53,4 +54,9 @@ export async function deleteCandidate(req: Request, res: Response) {
 export async function deleteAllCandidates() {
     const candidates = await Candidate.deleteMany({});
     console.log(`${Date.now()} candidates removed`)
+}
+
+export async function exportToCsv() {
+    const candidates = await Candidate.find()
+    uploadCandidatesCSV(candidates)
 }

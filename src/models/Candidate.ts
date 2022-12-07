@@ -4,7 +4,7 @@ const CandidateSchema = new Schema({
     name: { type: String, required: true },
     description: { type: String, required: true },
     phone: { type: String, required: true },
-    imss: { type: String, required: true },
+    imss: { type: String, required: false },
     assist: { type: Boolean, required: true },
     //point
     point: { type: Schema.Types.ObjectId, ref: "Point" },
@@ -12,6 +12,8 @@ const CandidateSchema = new Schema({
     vacant: { type: Schema.Types.ObjectId, ref: "Vacant" },
     //company
     company: { type: Schema.Types.ObjectId, ref: "Company" },
+}, {
+    timestamps: { createdAt: true, updatedAt: false }
 });
 
 interface ICandidate extends Document {
