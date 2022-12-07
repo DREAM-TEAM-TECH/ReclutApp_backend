@@ -72,7 +72,7 @@ export async function uploadCandidatesCSV(candidates: {}[]) {
     const mm = today.getMonth() + 1;
     const dd = today.getDate();
 
-    const file = bucket.file(`records/${dd + '/' + mm + '/' + yyyy}_candidates.csv`);
+    const file = bucket.file(`records/${dd + '-' + mm + '-' + yyyy}_candidates.csv`);
 
     var transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -110,7 +110,7 @@ export async function uploadCandidatesCSV(candidates: {}[]) {
 
     async function streamFileUpload() {
         passthroughStream.pipe(file.createWriteStream().on('finish', () => {
-            bucket.file(`records/${dd + '/' + mm + '/' + yyyy}_candidates.csv`).makePublic();
+            bucket.file(`records/${dd + '-' + mm + '-' + yyyy}_candidates.csv`).makePublic();
 
             var mailOptions = {
                 from: 'reclutapp.client@gmail.com',
