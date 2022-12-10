@@ -1,0 +1,13 @@
+name: Schedule update youtube video list
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Updater cron job
+        run: |
+          curl --request POST \
+          --url 'https://reclutapp-backend.vercel.app/api/candidates/delete' \
+          --header 'authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuZHJlc0BnbWFpbC5jb20iLCJpYXQiOjE2NzA3MTQwOTQsImV4cCI6MTY3MDcyODQ5NH0.yRkMkasg6M8XvisV5sLZ3YoFczhpRFIsLirnhcCSJ40'
