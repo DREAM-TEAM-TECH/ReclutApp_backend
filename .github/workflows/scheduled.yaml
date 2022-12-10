@@ -1,7 +1,7 @@
 name: Delete all the candidates
 on:
   schedule:
-    - cron: '*/10 * * * *'
+    - cron: '30 5,17 * * *'
 jobs:
   cron:
     runs-on: ubuntu-lastest
