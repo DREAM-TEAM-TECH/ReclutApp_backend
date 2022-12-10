@@ -11,7 +11,8 @@ import {
     getCandidate,
     updateCandidate,
     deleteCandidate,
-    getCandidatesByPoint
+    getCandidatesByPoint,
+    deleteAllCandidates
 } from '../controllers/candidates.controller'
 
 //Routes
@@ -29,5 +30,7 @@ router.route('/:id').get(getCandidate)
 router.route('/:id').put(updateCandidate)
 
 router.route('/:id').delete(deleteCandidate)
+
+router.route('/delete').post(deleteAllCandidates)
 
 export default router;
