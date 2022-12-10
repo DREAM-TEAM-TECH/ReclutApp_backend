@@ -51,9 +51,13 @@ export async function deleteCandidate(req: Request, res: Response) {
     });
 }
 
-export async function deleteAllCandidates() {
+export async function deleteAllCandidates(req: Request, res: Response) {
     const candidates = await Candidate.deleteMany({});
     console.log(`${Date.now()} candidates removed`)
+    return res.json({
+        msg: `${Date.now()} candidates removed`,
+        candidates,
+    })
 }
 
 export async function exportToCsv() {
