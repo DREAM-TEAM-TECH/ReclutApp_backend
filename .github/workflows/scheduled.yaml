@@ -1,0 +1,13 @@
+name: Delete all the candidates
+on:
+  schedule:
+    - cron: '*/10 * * * *'
+jobs:
+  cron:
+    runs-on: ubuntu-lastest
+    steps:
+      - name: Delete candidates
+        run: |
+          curl --request POST \
+          --url 'https://reclutapp-backend.vercel.app/api/candidates/delete' \
+          --header 'authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFuZHJlc0BnbWFpbC5jb20iLCJpYXQiOjE2NzA3MTA2NTAsImV4cCI6MTY3MDcyNTA1MH0.i9oj9_XkApALJ4ZV3NvI6A5NntZjs92wpCZ2meOKI-g'
