@@ -1,7 +1,7 @@
 name: Delete all the candidates
 on:
   schedule:
-    - cron: '59 23 * * *'
+    - cron: '0 23 * * *'
   workflow_dispatch:
 
 jobs:
