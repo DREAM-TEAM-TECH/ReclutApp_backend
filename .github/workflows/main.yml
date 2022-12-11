@@ -1,4 +1,4 @@
-name: Schedule update youtube video list
+name: Delete all the candidates
 on:
   schedule:
     - cron: '*/30 * * * *'
