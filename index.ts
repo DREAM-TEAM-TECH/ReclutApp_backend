@@ -14,9 +14,9 @@ async function main() {
     // const deleteJob = schedule.scheduleJob({ hour: 23, minute: 59 }, () => {
     //     deleteAllCandidates();
     // });
-    const exportJob = schedule.scheduleJob({ hour: 23, minute: 49 }, () => {
-        exportToCsv();
-    })
+    // const exportJob = schedule.scheduleJob({ hour: 23, minute: 49 }, () => {
+    //     exportToCsv();
+    // })
 }
 
 main();

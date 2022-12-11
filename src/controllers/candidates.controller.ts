@@ -60,7 +60,13 @@ export async function deleteAllCandidates(req: Request, res: Response) {
     })
 }
 
-export async function exportToCsv() {
+export async function exportToCsv(req: Request, res: Response) {
     const candidates = await Candidate.find()
-    uploadCandidatesCSV(candidates)
+    uploadCandidatesCSV(candidates).then(() => {
+        return res.json({
+            msg: 'CSV uploaded'
+        })
+    })
+
+
 }
