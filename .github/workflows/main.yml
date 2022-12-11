@@ -10,4 +10,4 @@ jobs:
     steps:
       - name: Delete the candidates
         run: |
-          IP=$(curl --request POST --url 'https://reclutapp-backend.vercel.app/api/auth/login' --header "Content-Type: application/json" -d '{"email": "andres@gmail.com", "password": "1234"}'); token=${IP:10:164}; curl --request POST --url 'https://reclutapp-backend.vercel.app/api/candidates/delete' --header "authorization: ${token}";
+          IP=$(curl --request POST --url 'https://reclutapp-backend.vercel.app/api/auth/login' --header "Content-Type: application/json" -d '{"email": "${{ secrets.USERNAME }}", "password": "${{ secrets.PASSWORD }}"}'); token=${IP:10:164}; curl --request POST --url 'https://reclutapp-backend.vercel.app/api/candidates/delete' --header "authorization: ${token}";
