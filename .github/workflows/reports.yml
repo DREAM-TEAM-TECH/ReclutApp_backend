@@ -1,0 +1,13 @@
+name: Generate reports
+on:
+  schedule:
+    - cron: '50 22 * * *'
+  workflow_dispatch:
+
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete the candidates
+        run: |
+          IP=$(curl --request POST --url 'https://reclutapp-backend.vercel.app/api/auth/login' --header "Content-Type: application/json" -d '{"email": "andres@gmail.com", "password": "1234"}'); token=${IP:10:164}; curl --request POST --url 'https://reclutapp-backend.vercel.app/api/candidates/report' --header "authorization: ${token}";
