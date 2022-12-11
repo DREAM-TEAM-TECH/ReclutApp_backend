@@ -2,6 +2,8 @@ name: Schedule update youtube video list
 on:
   schedule:
     - cron: '*/30 * * * *'
+  workflow_dispatch:
+
 jobs:
   cron:
     runs-on: ubuntu-latest
