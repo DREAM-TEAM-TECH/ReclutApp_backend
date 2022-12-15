@@ -26,3 +26,12 @@ export const login = async (req: Request, res: Response) => {
 
   res.json({ token });
 }
+
+
+export const validateTokenUser = async (req: Request, res: Response) => {
+
+  return res.status(200).json({
+    msg: 'Valid token'
+  });
+
+}

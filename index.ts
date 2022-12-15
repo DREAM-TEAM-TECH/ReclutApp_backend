@@ -1,7 +1,5 @@
 import app from './src/app'
 import { connection } from './src/database'
-import schedule from 'node-schedule'
-import { deleteAllCandidates, exportToCsv } from './src/controllers/candidates.controller'
 import dotenv from 'dotenv'
 import cors from 'cors';
 
